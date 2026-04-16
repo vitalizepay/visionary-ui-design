@@ -1,18 +1,47 @@
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import heroVideo from "../../public/hero-video.mp4.asset.json";
+import heroVideoCars from "../../public/hero-video-cars.mp4.asset.json";
+import heroVideoShip from "../../public/hero-video-ship.mp4.asset.json";
+import heroVideoAiSensors from "../../public/hero-video-ai-sensors.mp4.asset.json";
+
+const heroVideos = [
+  heroVideo.url,
+  heroVideoCars.url,
+  heroVideoAiSensors.url,
+  heroVideoShip.url,
+];
 
 export default function HeroSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const advance = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % heroVideos.length);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(advance, 8000);
+    return () => clearInterval(interval);
+  }, [advance]);
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/* Video background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover"
-        src={heroVideo.url}
-      />
+      {/* Video backgrounds with crossfade */}
+      <AnimatePresence mode="popLayout">
+        <motion.video
+          key={currentIndex}
+          autoPlay
+          loop
+          muted
+          playsInline
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2 }}
+          className="absolute inset-0 h-full w-full object-cover"
+          src={heroVideos[currentIndex]}
+        />
+      </AnimatePresence>
 
       {/* Light overlay */}
       <div className="absolute inset-0 bg-background/75" />
@@ -78,6 +107,21 @@ export default function HeroSection() {
             </a>
           </motion.div>
         </div>
+      </div>
+
+      {/* Video indicator dots */}
+      <div className="absolute bottom-20 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+        {heroVideos.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentIndex(i)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              i === currentIndex
+                ? "w-8 bg-primary"
+                : "w-2 bg-foreground/30 hover:bg-foreground/50"
+            }`}
+          />
+        ))}
       </div>
 
       {/* Scroll indicator */}
