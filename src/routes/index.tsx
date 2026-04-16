@@ -1,26 +1,34 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import VideoGrid from "@/components/VideoGrid";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Dillon & Bird — Driving Growth & Innovation Across the GCC" },
+      {
+        name: "description",
+        content:
+          "Dillon & Bird: Your dedicated strategic partner in the GCC. We blend finance, tech, and marketing to unlock your growth.",
+      },
+      { property: "og:title", content: "Dillon & Bird — Growth & Innovation" },
+      {
+        property: "og:description",
+        content:
+          "Strategic partnership, sustainable value, and future-forward solutions across the GCC.",
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <HeroSection />
+      <VideoGrid />
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
