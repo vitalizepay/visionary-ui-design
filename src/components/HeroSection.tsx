@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import heroVideo from "../../public/hero-video.mp4.asset.json";
-import heroVideoCars from "../../public/hero-video-cars.mp4.asset.json";
-import heroVideoShip from "../../public/hero-video-ship.mp4.asset.json";
-import heroVideoAiSensors from "../../public/hero-video-ai-sensors.mp4.asset.json";
+import dubaiAi from "../../public/dubai-ai.mp4.asset.json";
+import dubaiBanking from "../../public/dubai-banking.mp4.asset.json";
+import dubaiShipping from "../../public/dubai-shipping.mp4.asset.json";
+import dubaiSmartCity from "../../public/dubai-smart-city.mp4.asset.json";
 
 const heroVideos = [
-  heroVideo.url,
-  heroVideoCars.url,
-  heroVideoAiSensors.url,
-  heroVideoShip.url,
+  { url: dubaiAi.url, label: "AI Innovation" },
+  { url: dubaiBanking.url, label: "Banking & Finance" },
+  { url: dubaiShipping.url, label: "Supply Chain" },
+  { url: dubaiSmartCity.url, label: "Smart City" },
 ];
 
 export default function HeroSection() {
@@ -39,12 +39,13 @@ export default function HeroSection() {
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2 }}
           className="absolute inset-0 h-full w-full object-cover"
-          src={heroVideos[currentIndex]}
+          src={heroVideos[currentIndex].url}
         />
       </AnimatePresence>
 
-      {/* Light overlay */}
-      <div className="absolute inset-0 bg-background/75" />
+      {/* Stronger overlay for readability */}
+      <div className="absolute inset-0 bg-background/55" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/40 to-transparent" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-32">
@@ -109,19 +110,34 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Video indicator dots */}
-      <div className="absolute bottom-20 left-1/2 z-10 flex -translate-x-1/2 gap-2">
-        {heroVideos.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentIndex(i)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              i === currentIndex
-                ? "w-8 bg-primary"
-                : "w-2 bg-foreground/30 hover:bg-foreground/50"
-            }`}
-          />
-        ))}
+      {/* Video indicator dots with labels */}
+      <div className="absolute bottom-20 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={currentIndex}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.3 }}
+            className="text-xs font-semibold tracking-widest text-foreground/70 uppercase"
+          >
+            {heroVideos[currentIndex].label}
+          </motion.span>
+        </AnimatePresence>
+        <div className="flex gap-2">
+          {heroVideos.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              aria-label={`Show ${heroVideos[i].label} video`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === currentIndex
+                  ? "w-8 bg-primary"
+                  : "w-2 bg-foreground/30 hover:bg-foreground/50"
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Scroll indicator */}
