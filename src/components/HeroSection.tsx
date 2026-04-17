@@ -43,9 +43,8 @@ export default function HeroSection() {
         />
       </AnimatePresence>
 
-      {/* Stronger overlay for readability */}
-      <div className="absolute inset-0 bg-background/55" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/40 to-transparent" />
+      {/* Light overlay - keep videos bright and visible */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/15 to-transparent" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-32">
