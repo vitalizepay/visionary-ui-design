@@ -39,6 +39,8 @@ export const Route = createRootRoute({
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Lovable App" },
       { name: "twitter:description", content: "Visionary UI Design creates a modern, professional website for Dillon & Bird, emphasizing AI aesthetics and video content." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/yHvqmfl6VRfcgefBayn0wuDePha2/social-images/social-1776428246238-Dillon_and_Bird_Logo_Final.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/yHvqmfl6VRfcgefBayn0wuDePha2/social-images/social-1776428246238-Dillon_and_Bird_Logo_Final.webp" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
