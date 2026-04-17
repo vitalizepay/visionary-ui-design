@@ -1,7 +1,7 @@
 name: Deploy Vite Site
 
 on:
-  push:
+  push: 
     branches: [main]
  
 jobs:
